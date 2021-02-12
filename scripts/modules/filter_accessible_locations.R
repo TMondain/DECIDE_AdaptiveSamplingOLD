@@ -15,21 +15,21 @@
 
 # "/data/notebooks/
 
-# load public rights of way file (only some of england for the moment)
-prow <- st_read('/data/notebooks/rstudio-constraintlayers/Data/raw_data/rowmaps_footpathbridleway/rowmaps_footpathbridleway/ALL_PATHS_MERGED_long.shp')
-prow
-
-# load greenspaces
-greenspace <- st_read('/data/notebooks/rstudio-constraintlayers/Data/raw_data/OS_greenspaces/OS Open Greenspace (ESRI Shape File) GB/data/GB_GreenspaceSite_BNG.shp')
-greenspace
-
-# plot(st_geometry(grsp)) # this works but takes ages
-
-# load access points
-accesspoints <- st_read('/data/notebooks/rstudio-constraintlayers/Data/raw_data/OS_greenspaces/OS Open Greenspace (ESRI Shape File) GB/data/GB_AccessPoint_BNG.shp')
-accesspoints
-
-location= c(-2.789108, 54.039093) # lancaster
+# # load public rights of way file (only some of england for the moment)
+# prow <- st_read('/data/notebooks/rstudio-constraintlayers/Data/raw_data/rowmaps_footpathbridleway/rowmaps_footpathbridleway/ALL_PATHS_MERGED_long.shp')
+# prow
+# 
+# # load greenspaces
+# greenspace <- st_read('/data/notebooks/rstudio-constraintlayers/Data/raw_data/OS_greenspaces/OS Open Greenspace (ESRI Shape File) GB/data/GB_GreenspaceSite_BNG.shp')
+# greenspace
+# 
+# # plot(st_geometry(grsp)) # this works but takes ages
+# 
+# # load access points
+# accesspoints <- st_read('/data/notebooks/rstudio-constraintlayers/Data/raw_data/OS_greenspaces/OS Open Greenspace (ESRI Shape File) GB/data/GB_AccessPoint_BNG.shp')
+# accesspoints
+# 
+# location= c(-2.789108, 54.039093) # lancaster
 
 
 #########       the function        ########
