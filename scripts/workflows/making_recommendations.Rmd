@@ -65,18 +65,20 @@ all_spp_name <- c()
 files_list <- list.files('/data/notebooks/rstudio-constraintlayers/Data/raw_data/subset_species_ranfor_29_01_21/',
                          full.names = T)
 
-for(i in 1:length(files_list)){
-  
-  # load
-  load(files_list[i])
-  
-  # store sdm output file
-  all_spp[[i]] <- all_mods
-  
-  # store names
-  all_spp_name[i] <- as.character(all_mods[[1]]$sdm_output$Species)
-  
-}
+system.time(
+  for(i in 1:length(files_list)){
+    
+    # load
+    load(files_list[i])
+    
+    # store sdm output file
+    all_spp[[i]] <- all_mods
+    
+    # store names
+    all_spp_name[i] <- as.character(all_mods[[1]]$sdm_output$Species)
+    
+  }
+)
 
 # name the list the names of each species
 names(all_spp) <- all_spp_name
