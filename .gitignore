@@ -1,0 +1,15 @@
+packrat/lib*/
+.Rproj.user
+
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+.Rprofile
+.bash_history
+.config/
+.rstudio*/
+.gitconfig
+packrat/
+data/
+bin/
