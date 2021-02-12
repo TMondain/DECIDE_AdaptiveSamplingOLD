@@ -49,7 +49,7 @@ filter_distance <- function(obj,
     
     # extract the masked extent for raster
     if(class(obj)[1] == 'RasterLayer'){
-      c_buf <- crop(raster, buffed) # crop the raster - creates a square extent 
+      c_buf <- crop(obj, buffed) # crop the raster - creates a square extent 
       masked_area <- mask(c_buf, buffed)
       # plot(masked_area) # then mask it to get only the area within the 'travel distance'
       # par(mfrow = c(1,1))
@@ -62,7 +62,7 @@ filter_distance <- function(obj,
       return(c_buf) # return only the masked region x distance from the 'location'
       
     } else(
-      stop(paste('"object must be of class "RasterLayer" or "sf""')) #### FINISH
+      stop(paste('object must be of class "RasterLayer" or "sf". Current class is:', class(obj)))
     )
     
   }
