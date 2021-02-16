@@ -1,6 +1,5 @@
 packrat/lib*/
 .Rproj.user
-
 .Rproj.user
 .Rhistory
 .RData
@@ -13,8 +12,7 @@ packrat/lib*/
 packrat/
 data/
 bin/
-
 .html
-
-
-
+.wget-hsts
+.TinyTeX
+gadm36_GBR*
