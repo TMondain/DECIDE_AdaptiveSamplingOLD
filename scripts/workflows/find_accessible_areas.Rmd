@@ -42,7 +42,7 @@ Get UK map, gridded.
 # # get grid for UK
 # uk_map <- st_as_sf(getData("GADM", country = "GBR", level = 1))
 # uk_map <- st_transform(uk_map, 27700)
-# uk_grid <- st_make_grid(uk_map, cellsize = 100000, what = 'polygons', square=TRUE)
+# uk_grid <- st_make_grid(uk_map, cellsize = 25000, what = 'polygons', square=TRUE)
 # grid_intersect <- apply(st_intersects(uk_grid, uk_map, sparse = FALSE), 1, any)
 # simp_grid_uk2 <- uk_grid[grid_intersect]
 # 
@@ -53,11 +53,11 @@ Get UK map, gridded.
 #          dsn = '/data/notebooks/rstudio-constraintlayers/Data/raw_data/uk_map.shp',
 #          driver = "ESRI Shapefile", delete_layer = T)
 # st_write(simp_grid_uk2,
-#          dsn = '/data/notebooks/rstudio-constraintlayers/Data/raw_data/uk_grid.shp',
+#          dsn = '/data/notebooks/rstudio-constraintlayers/Data/raw_data/uk_grid_25km.shp',
 #          driver = "ESRI Shapefile", delete_layer = T)
 
 uk <- st_read('/data/notebooks/rstudio-constraintlayers/Data/raw_data/uk_map.shp')
-uk_grid <- st_read('/data/notebooks/rstudio-constraintlayers/Data/raw_data/uk_grid.shp')
+uk_grid <- st_read('/data/notebooks/rstudio-constraintlayers/Data/raw_data/uk_grid_25km.shp')
 
 st_crs(uk) <- 27700
 st_crs(uk_grid) <- 27700
@@ -182,7 +182,7 @@ plot_acc_loc <- function(x,
   }
 }
 
-plot_acc_loc(final_acc_loc, accsp = F)
+plot_acc_loc(final_acc_loc, accsp = T)
 
 ## can plot the prow according to the type of prow 
 plot(final_acc_loc[[1]]['ROW_TYPE'])
