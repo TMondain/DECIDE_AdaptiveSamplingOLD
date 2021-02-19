@@ -142,14 +142,14 @@ par(mfrow = c(2,2))
 for(j in 1:length(all_spp)) {
   
   # crop the predictions
-  crop_pred <- filter_distance(raster = all_spp[[j]]$rf$sdm_output$Predictions,
+  crop_pred <- filter_distance(obj = all_spp[[j]]$rf$sdm_output$Predictions,
                                method = 'buffer',
                                distance = distance,
                                location = location)
   names(crop_pred) <- 'predictions'
   
   # crop the error
-  crop_err <- filter_distance(raster = all_spp[[j]]$rf$quantile_range,
+  crop_err <- filter_distance(obj = all_spp[[j]]$rf$quantile_range,
                               method = 'buffer',
                               distance = distance,
                               location = location)
