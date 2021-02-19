@@ -77,13 +77,13 @@ The location and distance from the user obviously needs to remain the same acros
 location = c(-1.110557, 51.602436)
 distance = 5000
 
-# create buffer
-dat_sf <- st_sf(st_sfc(st_point(location)), crs = 4326) # load location points, convert to spatial lat/lon
-trans_loc <- st_transform(dat_sf, crs = 27700) # transform to BNG
-buffed <- st_buffer(trans_loc, distance) # create a buffer around the point
-
-grid_num <- st_intersects(buffed, uk_grid)[[1]]
-# grid_num
+# # create buffer
+# dat_sf <- st_sf(st_sfc(st_point(location)), crs = 4326) # load location points, convert to spatial lat/lon
+# trans_loc <- st_transform(dat_sf, crs = 27700) # transform to BNG
+# buffed <- st_buffer(trans_loc, distance) # create a buffer around the point
+# 
+# grid_num <- st_intersects(buffed, uk_grid)[[1]]
+# # grid_num
 
 
 ### function to do the same thing
@@ -117,30 +117,54 @@ The output of the lapply statement is a list of lists. The upper most list conta
 ```{r load_locs}
 
 system.time(
-  acc_loc <- lapply(c(1:length(grid_num)), FUN = function(n){
+  acc_loc <- lapply(c(1:length(grid_nums)), FUN = function(n){
     
-    # prow
+    # # prow
+    # prow_files <- list.files(prow_loc, 
+    #                          full.names = T,
+    #                          pattern = paste0(grid_nums[n], '.shp'))
+    # 
+    # prow <- sf::st_read(prow_files, quiet = TRUE)
+    # st_crs(prow) <- 27700
+    
+    # prow .rds
     prow_files <- list.files(prow_loc, 
                              full.names = T,
-                             pattern = paste0(grid_num[n], '.shp'))
+                             pattern = paste0(grid_nums[n], '.rds'))
     
-    prow <- sf::st_read(prow_files, quiet = TRUE)
+    prow <- readRDS(prow_files)
     st_crs(prow) <- 27700
     
-    # greenspaces
+    # # greenspaces .shp
+    # grnspc_files <- list.files(grnspc_loc, 
+    #                            full.names = T,
+    #                            pattern = paste0(grid_nums[n], '.shp'))
+    # 
+    # grnspc <- sf::st_read(grnspc_files, quiet = TRUE)
+    # st_crs(grnspc) <- 27700
+   
+    # greenspaces .rds
     grnspc_files <- list.files(grnspc_loc, 
                                full.names = T,
-                               pattern = paste0(grid_num[n], '.shp'))
+                               pattern = paste0(grid_nums[n], '.rds'))
     
-    grnspc <- sf::st_read(grnspc_files, quiet = TRUE)
+    grnspc <- readRDS(grnspc_files)
     st_crs(grnspc) <- 27700
+    
+    # # access points .shp
+    # accs_files <- list.files(accspnt_loc, 
+    #                          full.names = T,
+    #                          pattern = paste0(grid_nums[n], '.shp'))
+    # 
+    # accs <- sf::st_read(accs_files, quiet = TRUE)
+    # st_crs(accs) <- 27700
     
     # access points
     accs_files <- list.files(accspnt_loc, 
                              full.names = T,
-                             pattern = paste0(grid_num[n], '.shp'))
+                             pattern = paste0(grid_nums[n], '.rds'))
     
-    accs <- sf::st_read(accs_files, quiet = TRUE)
+    accs <- readRDS(accs_files)
     st_crs(accs) <- 27700
     
     return(list(prow, grnspc, accs))
@@ -154,6 +178,7 @@ all_outs <- do.call(Map, c(rbind, acc_loc))
 
 ```
 
+From initial testing it looks as if .rds files actually take longer to read into memory that shapefiles which is interesting. .fst files are only for data frames, so I wonder if it's possible to convert sf objects into data frames and load them in that way... 
 
 Now need to crop the output of the loaded files and plot. These are the layers that will then be superimposed on the SDM metric outputs. I have edited the filter_distance function to accept sf objects automatically - or we can use the filter_accessible_locations() functions that we created for this purpose. It might be simpler to reduce the number of functions and be able to use the same functions across multiple file types when they're doing the same things. 
 
