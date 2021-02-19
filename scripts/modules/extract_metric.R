@@ -2,6 +2,8 @@
 ### Overlaying SDMs and shapes
 
 library(stars)
+library(sf)
+library(lwgeom)
 
 # greenspace/prow files
 # prow
@@ -25,6 +27,16 @@ st_crs(sm_gr) <- 27700
 plot(sm_gr)
 plot(st_geometry(sm_gr))
 plot(st_geometry(prw), add = T)
+
+test_split <- st_split(prw, st_combine(sm_gr))
+dim(test_split)
+dim(prw)
+plot(test_split$geometry)
+plot(test_split['ROW_TYPE'])
+plot(test_split[1])
+plot(prw[1])
+
+plot(st_combine(sm_gr))
 
 BB <- st_cast(sm_gr, "MULTILINESTRING", group_or_split=FALSE)
 ## Break LINESTRING A into segments by using:
